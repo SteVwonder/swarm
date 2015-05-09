@@ -10,5 +10,7 @@ function teardown() {
 	swarm_manage
 	run docker_swarm info
 	[ "$status" -eq 0 ]
-	[[ "${output}" == *'Slaves'* ]]
+	[[ "${output}" == *'Offers'* ]]
 }
+
+

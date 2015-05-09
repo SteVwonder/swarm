@@ -11,9 +11,9 @@ import (
 
 func TestOfferSorter(t *testing.T) {
 	offers := []*mesosproto.Offer{
-		&mesosproto.Offer{Id: &mesosproto.OfferID{Value: proto.String("id1")}},
-		&mesosproto.Offer{Id: &mesosproto.OfferID{Value: proto.String("id3")}},
-		&mesosproto.Offer{Id: &mesosproto.OfferID{Value: proto.String("id2")}},
+		{Id: &mesosproto.OfferID{Value: proto.String("id1")}},
+		{Id: &mesosproto.OfferID{Value: proto.String("id3")}},
+		{Id: &mesosproto.OfferID{Value: proto.String("id2")}},
 	}
 
 	sort.Sort(offerSorter(offers))

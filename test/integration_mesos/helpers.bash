@@ -30,7 +30,7 @@ function docker_swarm() {
 }
 
 function swarm_manage() {
-        ${SWARM_ROOT}/swarm manage -c mesos -H $SWARM_HOST $MESOS_CLUSTER_ENTRYPOINT &
+	${SWARM_ROOT}/swarm manage -c mesos -H $SWARM_HOST $MESOS_CLUSTER_ENTRYPOINT &
 	SWARM_PID=$!
 	wait_until_reachable $SWARM_HOST
 }
