@@ -38,6 +38,7 @@ func weighNodes(config *dockerclient.ContainerConfig, nodes []cluster.Node) (wei
 	for _, node := range nodes {
 		nodeMemory := node.TotalMemory()
 		nodeCpus := node.TotalCpus()
+		nodeDiskIO := node.TotalDiskIO()
 
 		// Skip nodes that are smaller than the requested resources.
 		if nodeMemory < int64(config.Memory) || nodeCpus < config.CpuShares {
@@ -47,6 +48,7 @@ func weighNodes(config *dockerclient.ContainerConfig, nodes []cluster.Node) (wei
 		var (
 			cpuScore    int64 = 100
 			memoryScore int64 = 100
+			ioScore     int64 = 100
 		)
 
 		if config.CpuShares > 0 {
@@ -55,9 +57,10 @@ func weighNodes(config *dockerclient.ContainerConfig, nodes []cluster.Node) (wei
 		if config.Memory > 0 {
 			memoryScore = (node.UsedMemory() + config.Memory) * 100 / nodeMemory
 		}
+		ioScore = (node.UsedDiskIO()) * 100 / nodeDiskIO
 
-		if cpuScore <= 100 && memoryScore <= 100 {
-			weightedNodes = append(weightedNodes, &weightedNode{Node: node, Weight: cpuScore + memoryScore})
+		if cpuScore <= 100 && memoryScore <= 100 && ioScore <= 100 {
+			weightedNodes = append(weightedNodes, &weightedNode{Node: node, Weight: cpuScore + memoryScore + ioScore})
 		}
 	}
 
