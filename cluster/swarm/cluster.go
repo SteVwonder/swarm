@@ -283,6 +283,7 @@ func (c *Cluster) Info() [][2]string {
 		info = append(info, [2]string{" └ Containers", fmt.Sprintf("%d", len(node.Containers()))})
 		info = append(info, [2]string{" └ Reserved CPUs", fmt.Sprintf("%d / %d", node.UsedCpus(), node.TotalCpus())})
 		info = append(info, [2]string{" └ Reserved Memory", fmt.Sprintf("%s / %s", units.BytesSize(float64(node.UsedMemory())), units.BytesSize(float64(node.TotalMemory())))})
+		info = append(info, [2]string{" └ Reserved DiskIO", fmt.Sprintf("%s / %s", units.BytesSize(float64(node.UsedDiskIO())), units.BytesSize(float64(node.TotalDiskIO())))})
 	}
 
 	return info

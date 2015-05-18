@@ -44,6 +44,8 @@ type node struct {
 	name   string
 	Cpus   int64
 	Memory int64
+	MaxDiskIO  int64
+	CurrDiskIO int64
 	labels map[string]string
 
 	ch              chan bool
@@ -156,6 +158,8 @@ func (n *node) updateSpecs() error {
 	n.name = info.Name
 	n.Cpus = info.NCPU
 	n.Memory = info.MemTotal
+	n.MaxDiskIO = info.MaxIO
+	n.CurrDiskIO = info.CurrIO
 	n.labels = map[string]string{
 		"storagedriver":   info.Driver,
 		"executiondriver": info.ExecutionDriver,
@@ -345,6 +349,11 @@ func (n *node) UsedMemory() int64 {
 	return r
 }
 
+// Return the sum of memory reserved by containers.
+func (n *node) UsedDiskIO() int64 {
+	return n.CurrDiskIO
+}
+
 // Return the sum of CPUs reserved by containers.
 func (n *node) UsedCpus() int64 {
 	var r int64
@@ -362,6 +371,10 @@ func (n *node) TotalMemory() int64 {
 
 func (n *node) TotalCpus() int64 {
 	return n.Cpus + (n.Cpus * n.overcommitRatio / 100)
+}
+
+func (n *node) TotalDiskIO() int64 {
+	return n.MaxDiskIO + (n.MaxDiskIO * n.overcommitRatio / 100)
 }
 
 func (n *node) create(config *dockerclient.ContainerConfig, name string, pullImage bool) (*cluster.Container, error) {

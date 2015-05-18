@@ -19,6 +19,8 @@ type Node interface {
 	UsedCpus() int64    //used by the strategy
 	TotalMemory() int64 //used by the strategy
 	UsedMemory() int64  //used by the strategy
+	TotalDiskIO() int64 //used by the strategy
+	UsedDiskIO() int64  //used by the strategy
 
 	Labels() map[string]string //used by the filters
 
