@@ -230,6 +230,8 @@ type Info struct {
 	MemTotal        int64
 	Name            string
 	Labels          []string
+	MaxIO           int64
+	CurrIO          int64
 }
 
 type ImageDelete struct {
