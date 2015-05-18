@@ -103,7 +103,7 @@ func (n *node) connectClient(client dockerclient.Client) error {
 	n.client = client
 
 	// Fetch the engine labels.
-	if err := n.updateSpecs(); err != nil {
+	if err := n.UpdateSpecs(); err != nil {
 		n.client = nil
 		return err
 	}
@@ -139,7 +139,7 @@ func (n *node) IsHealthy() bool {
 }
 
 // Gather node specs (CPU, memory, constraints, ...).
-func (n *node) updateSpecs() error {
+func (n *node) UpdateSpecs() error {
 	info, err := n.client.Info()
 	if err != nil {
 		return err
@@ -313,7 +313,7 @@ func (n *node) refreshLoop() {
 				n.client.StopAllMonitorEvents()
 				n.client.StartMonitorEvents(n.handler, nil)
 				n.emitEvent("node_reconnect")
-				if err := n.updateSpecs(); err != nil {
+				if err := n.UpdateSpecs(); err != nil {
 					log.WithFields(log.Fields{"name": n.name, "id": n.id}).Errorf("Update node specs failed: %v", err)
 				}
 			}

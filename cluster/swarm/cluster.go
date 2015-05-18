@@ -279,6 +279,10 @@ func (c *Cluster) Info() [][2]string {
 	sort.Sort(cluster.NodeSorter(nodes))
 
 	for _, node := range nodes {
+		err := node.UpdateSpecs()
+		if err != nil {
+			continue
+		}
 		info = append(info, [2]string{node.Name(), node.Addr()})
 		info = append(info, [2]string{" └ Containers", fmt.Sprintf("%d", len(node.Containers()))})
 		info = append(info, [2]string{" └ Reserved CPUs", fmt.Sprintf("%d / %d", node.UsedCpus(), node.TotalCpus())})

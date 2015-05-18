@@ -25,6 +25,8 @@ type Node interface {
 	Labels() map[string]string //used by the filters
 
 	IsHealthy() bool
+
+	UpdateSpecs() error
 }
 
 // SerializeNode is exported
