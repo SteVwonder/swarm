@@ -1,3 +1,34 @@
+# Notes in reference to ISC 2016 Paper
+## Relevant Commits
+Commit Description | Commit Links
+----------- | ------------
+Added I/O types and functions | [04e5604](https://github.com/SteVwonder/dockerclient/commit/04e5604), [e715dd0](https://github.com/SteVwonder/dockerclient/commit/e715dd0)
+Merge from upstream repo | [853fb6b](https://github.com/SteVwonder/dockerclient/commit/853fb6b)
+Update I/O stats periodically (with /info) | [bebad5c](https://github.com/SteVwonder/dockerclient/commit/bebad5c)
+Added I/O to scheduler weight function | [2727c84](https://github.com/SteVwonder/dockerclient/commit/2727c84)
+
+
+## Relevant Files:
+* [types.go](Godeps/_workspace/src/github.com/samalba/dockerclient/types.go)
+* [node.go](cluster/node.go)
+* [swarm/node.go](cluster/swarm/node.go)
+* [cluster.go](cluster/swarm/cluster.go)
+* [weighted_node.go](scheduler/strategy/weighted_node.go)
+
+## Paper Information
+Stephen Herbein, Ayush Dusia, Aaron Landwehr, Sean McDaniel, Jose Monsalve, Yang Yang, Seetharami R. Seelam, and Michela Taufer. Resource Management for Running HPC Applications in Container Clouds. In _Proceedings of 31st International Supercomputing Conference_, ISC, Leipzig, Germany, June 2016.
+```
+@inproceedings{Docker-ISC,
+author = {Stephen Herbein and Ayush Dusia and Aaron Landwehr and Sean McDaniel and Jose Monsalve and Yang Yang and Seetharami R. Seelam and Michela Taufer},
+title={Resource Management for Running HPC Applications in Container Clouds},
+booktitle={Proceedings of 31st International Supercomputing Conference},
+series = {ISC},
+year={2016},
+month={June},
+address = {Leipzig, Germany},
+}
+```
+
 # Swarm: a Docker-native clustering system
 
 [![Build Status](https://travis-ci.org/docker/swarm.svg?branch=master)](https://travis-ci.org/docker/swarm)
